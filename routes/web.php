@@ -11,6 +11,31 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
+/*
+|--------------------------------------------------------------------------
+|
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
-    return view('welcome');
+    return !Auth::check() ? view('auth.login') : view('app.dashboard');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Routes for unauthenticated Users
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => 'guest'], function () {
+    Route::post('login', 'Auth\AuthController@login')->name('login');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Routes for authenticated users
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('logout', 'Auth\AuthController@logout')->name('logout');
 });
