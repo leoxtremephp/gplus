@@ -1,15 +1,23 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class RolesTableSeeder
+ */
 class RolesTableSeeder extends Seeder
 {
+
     /**
-     * Roles Table
+     * Roles list
      *
-     * @var string
+     * @var array
      */
-    private $table = 'roles';
+    private $roles = [
+        'Administrador',
+        'Usuario'
+    ];
 
     /**
      * Run the database seeds.
@@ -18,12 +26,8 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table($this->table)->insertGetId([
-            'name' => 'Administrador',
-        ]);
-
-        DB::table($this->table)->insertGetId([
-            'name' => 'Usuario',
-        ]);
+        array_map(function ($role) {
+            Role::create(['name' => $role]);
+        }, $this->roles);
     }
 }

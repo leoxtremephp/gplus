@@ -20,11 +20,15 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create($this->table, function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
-            $table->boolean('active')->default(true);
-        });
+        if (!Schema::hasTable($this->table)) {
+            Schema::create($this->table, function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name')->unique();
+                $table->boolean('active')->default(true);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
