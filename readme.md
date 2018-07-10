@@ -4,6 +4,7 @@
 1. `composer install`
 2. `@php -r "file_exists('.env') || copy('.env.example', '.env');"`
 3. Create the database and update the credentials in the `.env.` file
+4. `php artisan key:generate`
 4. `php artisan migrate`
 5. `php artisan db:seed`
 6. `npm i`
