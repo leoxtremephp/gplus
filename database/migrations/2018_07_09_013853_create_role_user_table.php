@@ -20,19 +20,24 @@ class CreateRoleUserTable extends Migration
      */
     public function up()
     {
-        Schema::create($this->table, function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('role_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+        if (!Schema::hasTable($this->table)) {
+            Schema::create($this->table, function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('role_id')->unsigned();
+                $table->integer('user_id')->unsigned();
 
-            $table->foreign('role_id')
-                ->references('id')->on('roles')
-                ->onDelete('cascade');
+                $table->foreign('role_id')
+                    ->references('id')->on('roles')
+                    ->onDelete('cascade');
 
-            $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
-        });
+                $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade');
+
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
