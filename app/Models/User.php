@@ -115,4 +115,25 @@ class User extends Authenticatable
                 return false;
         }
     }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        return;
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return;
+    }
 }
