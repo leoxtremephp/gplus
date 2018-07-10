@@ -25,7 +25,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-user"></i>
                                             </div>
-                                            <input type="email" class="form-control" name="email" placeholder="E-Mail" autofocus required>
+                                            <input type="email" class="form-control" name="email" placeholder="E-Mail"
+                                                   autofocus required>
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +36,8 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-lock"></i>
                                             </div>
-                                            <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
+                                            <input type="password" class="form-control" name="password"
+                                                   placeholder="Contraseña" required>
                                         </div>
                                     </div>
                                 </div>
@@ -60,12 +62,12 @@
                 alert = $('.alert');
 
             form.submit(function (events) {
-                $.post("{{ route('login') }}", form.serialize())
+                $.post("{{ route('auth.login') }}", form.serialize())
                     .done(function (data) {
                         window.location.reload();
                     })
                     .fail(function (data) {
-                        alert.show().html(data.responseJSON.message);
+                        alert.show().html(data.responseJSON.errors.email);
                         panel.effect('shake', {
                             times: 2,
                             distance: 12

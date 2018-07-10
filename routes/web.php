@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 */
 Route::get('/', function () {
     return !Auth::check() ? view('auth.login') : view('app.dashboard');
-});
+})->name('wrapper');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => 'guest'], function () {
-    Route::post('login', 'Auth\AuthController@login')->name('login');
+    Route::post('login', 'Auth\AuthController@login')->name('auth.login');
 });
 
 /*
@@ -37,5 +37,5 @@ Route::group(['middleware' => 'guest'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('logout', 'Auth\AuthController@logout')->name('logout');
+    Route::post('logout', 'Auth\AuthController@logout');
 });
