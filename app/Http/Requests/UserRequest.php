@@ -14,7 +14,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return !Auth::check();
+        return true;
     }
 
     /**
@@ -25,8 +25,18 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|unique:users|email_active:email@me.com|email_online:email@me.com',
+            'email' => 'required|unique:users',
             'password' => 'required|string|between:4,40'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'Email is required',
+            'email.unique' => 'Email already exists',
+            'password.required' => 'Password is required',
+            'password.between' => 'Password length should be between :min and :max characters',
         ];
     }
 }

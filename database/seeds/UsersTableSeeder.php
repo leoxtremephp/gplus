@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\RoleUser;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
@@ -22,21 +24,20 @@ class UsersTableSeeder extends Seeder
     /**
      * Run the database seeds.
      *
+     * @param UserRepository $userRepository
      * @return void
      */
-    public function run()
+    public function run(UserRepository $userRepository)
     {
-        DB::table($this->table)->insertGetId([
-            'email'      => 'developer@cusobu.com',
-            'password'   => bcrypt('ascent'),
-            'first_name' => 'CUSOBU',
-            'last_name'  => 'Developer',
-            'created_at' => Carbon::now()
-        ]);
+        $users = config('extra.users');
 
-        DB::table($this->pivot)->insertGetId([
-            'role_id' => 1,
-            'user_id' => 1
-        ]);
+        array_map(function ($userArray) use ($userRepository) {
+            $roleId = $userArray['role_id'];
+            unset($userArray['role_id']);
+
+            $user = $userRepository->create($userArray, true);
+            RoleUser::create(['role_id' => $roleId, 'user_id' => $user->id]);
+
+        }, $users);
     }
 }

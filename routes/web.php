@@ -31,6 +31,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('login', 'Auth\AuthController@login')->name('auth.login');
 });
 
+Route::post('register', 'UserController@store')->name('auth.register');
+
 /*
 |--------------------------------------------------------------------------
 | Routes for authenticated users

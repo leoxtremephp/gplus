@@ -1,10 +1,6 @@
 @extends('base')
 @section('styles')
-    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/auth/theme-default.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 @endsection
 @section('content')
     <div class="container">
@@ -14,7 +10,11 @@
                     <div class="panel-heading"></div>
                     <div class="panel-body">
                         <small>
-                            <div class="alert alert-danger" hidden></div>
+                            @if ($errors)
+                                @foreach($errors->all() as $error)
+                                <div class="alert alert-danger" hidden>{{ $error }}</div>
+                                @endforeach
+                            @endif
                         </small>
                         <form id="form">
                             {{ csrf_field() }}
@@ -53,8 +53,7 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ mix('/js/app.js') }}"></script>
     <script>
         $(document).ready(function () {
             var form = $('form'),
