@@ -25,7 +25,9 @@ class EmailActiveRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        Log::info("{$attribute} : {$value}");
+
+        return true;
     }
 
     /**
