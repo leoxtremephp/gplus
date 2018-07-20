@@ -10,7 +10,11 @@
                     <div class="panel-heading"></div>
                     <div class="panel-body">
                         <small>
-                            <div class="alert alert-danger" hidden></div>
+                            @if ($errors)
+                                @foreach($errors->all() as $error)
+                                <div class="alert alert-danger" hidden>{{ $error }}</div>
+                                @endforeach
+                            @endif
                         </small>
                         <form id="form">
                             {{ csrf_field() }}

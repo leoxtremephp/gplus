@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|unique:users|email_active',
+            'email' => 'required|unique:users',
             'password' => 'required|string|between:4,40'
         ];
     }
@@ -33,12 +33,10 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => '',
-            'email.unique' => '',
-            'email.email_active' => '',
-            'password.required' => '',
-            'password.string' => '',
-            'password.between' => '',
+            'email.required' => 'Email is required',
+            'email.unique' => 'Email already exists',
+            'password.required' => 'Password is required',
+            'password.between' => 'Password length should be between :min and :max characters',
         ];
     }
 }
